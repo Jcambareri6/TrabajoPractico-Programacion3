@@ -1,4 +1,6 @@
-package tpe;
+
+
+
 
 public class Procesador {
     private String id;

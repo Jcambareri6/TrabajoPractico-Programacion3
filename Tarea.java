@@ -1,4 +1,4 @@
-package tpe;
+
 
 public class Tarea {
     private String id;
@@ -13,9 +13,12 @@ public class Tarea {
         this.tiempoEjecucion= tiempoEjecucion;
         this.nombre = nombre;
         this.esCritica = esCritica;
-        if (nivelDePrioridad > 0 && nivelDePrioridad < 101) {
+        if (nivelDePrioridad >= 0 && nivelDePrioridad <= 100) {
             this.nivelDePrioridad = nivelDePrioridad;
+        } else {
+            this.nivelDePrioridad = 0; // Establecer a 0 si está fuera de rango
         }
+    
     }
 
     public String getId() {

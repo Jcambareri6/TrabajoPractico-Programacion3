@@ -1,5 +1,3 @@
-package tpe.utils;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import tpe.Procesador;
-import tpe.Tarea;
+
+
 
 
 public class CSVReader {
@@ -16,7 +14,7 @@ public class CSVReader {
 	public CSVReader() {
 	}
 	
-	public ArrayList<Tarea> readTasks(String taskPath) {
+	public  ArrayList<Tarea> readTasks(String taskPath) {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
