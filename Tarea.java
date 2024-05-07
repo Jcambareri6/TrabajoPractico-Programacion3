@@ -1,6 +1,6 @@
 
 
-public class Tarea {
+public class Tarea implements Comparable<Tarea>{
     private String id;
     private int tiempoEjecucion;
     private String nombre;
@@ -69,6 +69,16 @@ public class Tarea {
     public String toString() {
         return "Tarea [id=" + id + ", tiempoEjecucion=" + tiempoEjecucion + ", nombre=" + nombre + ", esCritica="
                 + esCritica + ", nivelDePrioridad=" + nivelDePrioridad + "]";
+    }
+
+    @Override
+    public int compareTo(Tarea o) {
+    if(this.getNivelDePrioridad()>o.getNivelDePrioridad()){
+        return 1;
+    }else if( this.getNivelDePrioridad()<o.getNivelDePrioridad()){
+        return -1;
+    }
+    return 0;
     }
 
 }

@@ -14,13 +14,13 @@ public class CSVReader {
 	public CSVReader() {
 	}
 	
-	public  ArrayList<Tarea> readTasks(String taskPath) {
+	public  Tree<Tarea> readTasks(String taskPath) {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
 		ArrayList<String[]> lines = this.readContent(taskPath);
-		ArrayList<Tarea> TareasDoc = new ArrayList<Tarea>();
+		 Tree<Tarea> TareasDoc = new Tree<Tarea>();
 		
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
@@ -31,7 +31,7 @@ public class CSVReader {
 			Integer prioridad = Integer.parseInt(line[4].trim());
 			// Aca instanciar lo que necesiten en base a los datos leidos
 			Tarea  Tarea = new Tarea(id,tiempo,nombre,critica,prioridad);
-			TareasDoc.add(Tarea);
+			TareasDoc.Agregar(Tarea); // ROMPE ENCAPSULAMIENTO ? CONSULTAR 
 		}
 		return TareasDoc;
 		

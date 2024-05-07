@@ -15,16 +15,16 @@ import java.util.List;
  */
 public class Servicios {
 
-	private ArrayList <Procesador> procesadores;
-	private ArrayList <Tarea> Tareas;
+	private Tree <Tarea> tareas;
+	
 	/*
      * Expresar la complejidad temporal del constructor.
      */
 	public Servicios(String pathProcesadores, String pathTareas)
 	{
 		CSVReader reader = new CSVReader();
-		procesadores =reader.readProcessors(pathProcesadores);
-		Tareas = reader.readTasks(pathTareas);
+		
+		tareas = reader.readTasks(pathTareas);
 		//reader.readTasks(pathTareas);																	
 	}
 
