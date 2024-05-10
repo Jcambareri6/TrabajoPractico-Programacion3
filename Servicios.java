@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
-
-
 /**
  * NO modificar la interfaz de esta clase ni sus métodos públicos.
  * Sólo se podrá adaptar el nombre de la clase "Tarea" según sus decisiones
@@ -16,6 +12,7 @@ import java.util.List;
 public class Servicios {
 
 	private Tree <Tarea> tareas;
+	private Tree <Procesador> procesadores;
 	
 	/*
      * Expresar la complejidad temporal del constructor.
@@ -23,22 +20,10 @@ public class Servicios {
 	public Servicios(String pathProcesadores, String pathTareas)
 	{
 		CSVReader reader = new CSVReader();
-		
 		tareas = reader.readTasks(pathTareas);
-		//reader.readTasks(pathTareas);																	
+		procesadores = reader.readProcessors(pathProcesadores);															
 	}
 
-	public  void  getProcesadores(){
-		for (Procesador  proc : this.procesadores){
-			System.out.println(proc.getId());
-		}
-	}
-	public  void  getTareas(){
-		for (Tarea  tarea : this.Tareas){
-			System.out.println(tarea.toString());
-		}
-	}
-	
 	// /*
     //  * Expresar la complejidad temporal del servicio 1.
     //  */
