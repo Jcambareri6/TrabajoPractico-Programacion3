@@ -37,28 +37,28 @@ public class Tree <T extends Comparable<T>> {
         }
     }
 
-    // public boolean HasElement(int valor) {
-    //     if (this.root == null) {
-    //         return false;
-    //     } else {
-    //         return HasElement(this.root, valor);
-    //     }
-    // }
+    public T HasElement(String id) {
+        if (this.root == null) {
+            return null;
+        } else {
+            return HasElement(this.root, id);
+        }
+    }
 
-    // private boolean HasElement(TreeNode nodo, int valor) {
-    //     if (nodo.getValor() > valor) {
-    //         if (nodo.getIzq() != null) {
-    //             return HasElement(nodo.getIzq(), valor);
-    //         }
-    //     } else {
-    //         if (nodo.getDer() != null) {
-    //             return HasElement(nodo.getDer(), valor);
-    //         } else if (nodo.getValor() == valor) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+    private T HasElement(TreeNode nodo, String id) {
+        if (nodo.getValor() > valor) {
+            if (nodo.getIzq() != null) {
+                return HasElement(nodo.getIzq(), valor);
+             }
+        } else {
+            if (nodo.getDer() != null) {
+                return HasElement(nodo.getDer(), valor);
+            } else if (nodo.getValor() == valor) {
+                return true;
+            }
+        }
+        return null;
+    }
 
     public T GetRoot() {
         return this.root.getValor();
@@ -68,69 +68,6 @@ public class Tree <T extends Comparable<T>> {
         return this.root == null;
     }
 
-    // public int getHeight() {
-    //     if (this.root == null) {
-    //         return -1;
-    //     } else {
-    //         return getHeight(this.root);
-    //     }
-
-    // }
-
-    // private int getHeight(TreeNode node) {
-        
-    //     if (node == null) {
-    //         return -1; // altura de un árbol vacío es -1
-    //     } else {
-            
-    //         int leftHeight = getHeight(node.getIzq());
-        
-    //         int rightHeight = getHeight(node.getDer());
-            
-           
-           
-    //         if (leftHeight > rightHeight) {
-                
-    //             return leftHeight + 1;
-    //         } else {
-    //             return rightHeight + 1; 
-    //         }
-    //     }
-    // }
-    // public ArrayList<Integer> getfrontera(){
-    //     if(this.root==null){
-    //         return new ArrayList<>();
-    //     }else{
-    //         return getFrontera(this.root);
-    //     }
-    // }
-    // private ArrayList <Integer> getFrontera (TreeNode nodo){
-    //     if (nodo.getDer()==null && nodo.getIzq()==null){
-    //         ArrayList <Integer> Solucion = new ArrayList<>();
-    //         Solucion.add(nodo.getValor());
-    //         return Solucion;
-    //     }else if(nodo.getDer()!=null){
-    //         return getFrontera(nodo.getDer());
-    //     }
-    //     return getFrontera(nodo.getIzq());
-
-    // }
-    // private ArrayList<Integer> getFrontera(TreeNode nodo) {
-    //     ArrayList<Integer> solucion = new ArrayList<>();
-    //     if (nodo.getIzq() == null && nodo.getDer() == null) {
-    //         // Es un nodo hoja, añadir su valor a la lista de soluciones
-    //         solucion.add(nodo.getValor());
-    //     } else {
-    //         // De lo contrario, verifica ambos subárboles (si existen) y agrega sus nodos frontera
-    //         if (nodo.getIzq() != null) {
-    //             solucion.addAll(getFrontera(nodo.getIzq()));
-    //         }
-    //         if (nodo.getDer() != null) {
-    //             solucion.addAll(getFrontera(nodo.getDer()));
-    //         }
-    //     }
-    //     return solucion;
-    // }
     // public boolean delete (int valor ){
     //     if(this.root == null){
     //         return false; 
@@ -175,20 +112,8 @@ public class Tree <T extends Comparable<T>> {
     //     return true;
     // }
 
-    // private TreeNode findMin(TreeNode node) {
-    //     while (node.getIzq() != null) {
-    //         node = node.getIzq();
-    //     }
-    //     return node;
-    // }
-    public void imprimirEnOrdenPublico() {
-         imprimirEnOrden(this.root); // Llama al método privado con la raíz del árbol
-     }
      public void imprimirPreOrden() {
          imprimirPreOrden(this.root); // Llama al método privado con la raíz del árbol
-     }
-     public void imprimirPosOrden() {
-        imprimirPosOrden(this.root); // Llama al método privado con la raíz del árbol
      }
      private void imprimirPreOrden(TreeNode<T> nodo) {
         if (nodo == null) {
@@ -199,22 +124,6 @@ public class Tree <T extends Comparable<T>> {
         imprimirPreOrden(nodo.getIzq()); 
          imprimirPreOrden(nodo.getDer()); 
      }
-     private void imprimirEnOrden(TreeNode <T> nodo) {
-         if (nodo == null) return;
-        imprimirEnOrden(nodo.getIzq()); // Cambio aquí
-         System.out.print(nodo.getValor() + " ");
-         imprimirEnOrden(nodo.getDer()); // Cambio aquí
-     }
-     private void imprimirPosOrden(TreeNode nodo) {
-        if (nodo == null) {
-          return ;
-         }
-       
-        imprimirPreOrden(nodo.getIzq()); 
-        imprimirPreOrden(nodo.getDer()); 
-       System.out.print(nodo.getValor() + " "); 
-    }
-    
 
   
 }

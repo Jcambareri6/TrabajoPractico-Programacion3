@@ -28,9 +28,9 @@ public class Servicios {
     //  * Expresar la complejidad temporal del servicio 1.
     //  */
 	// //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
-	// public Tarea servicio1(String ID) {	
-
-	// }
+	public Tarea servicio1(String ID) {	
+		return tareas.HasElement(ID);
+	}
     
     // /*
     //  *-Expresar la complejidad temporal del servicio 2.
