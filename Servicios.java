@@ -24,7 +24,7 @@ public class Servicios {
 	{
 		CSVReader reader = new CSVReader();
 		
-		tareas = reader.readTasks(pathTareas);
+		this.tareas = reader.readTasks(pathTareas);
 		//reader.readTasks(pathTareas);																	
 	}
 

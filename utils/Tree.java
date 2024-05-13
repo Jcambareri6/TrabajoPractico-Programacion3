@@ -37,6 +37,7 @@ public class Tree <T extends Comparable<T>> {
         }
     }
 
+ 
     // public boolean HasElement(int valor) {
     //     if (this.root == null) {
     //         return false;
@@ -59,6 +60,8 @@ public class Tree <T extends Comparable<T>> {
     //     }
     //     return false;
     // }
+
+   
 
     public T GetRoot() {
         return this.root.getValor();
