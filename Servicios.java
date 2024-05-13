@@ -29,7 +29,7 @@ public class Servicios {
     //  */
 	// //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
 	public Tarea servicio1(String ID) {	
-		return tareas.HasElement(ID);
+		Tarea tarea = tareas.HasElement(ID);
 	}
     
     // /*

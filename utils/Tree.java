@@ -37,7 +37,7 @@ public class Tree <T extends Comparable<T>> {
         }
     }
 
-    public T HasElement(String id) {
+    public TreeNode HasElement(String id) {
         if (this.root == null) {
             return null;
         } else {
@@ -45,7 +45,7 @@ public class Tree <T extends Comparable<T>> {
         }
     }
 
-    private T HasElement(TreeNode nodo, String id) {
+    private TreeNode HasElement(TreeNode nodo, String id) {
         if (nodo.getValor() > valor) {
             if (nodo.getIzq() != null) {
                 return HasElement(nodo.getIzq(), valor);
@@ -54,7 +54,7 @@ public class Tree <T extends Comparable<T>> {
             if (nodo.getDer() != null) {
                 return HasElement(nodo.getDer(), valor);
             } else if (nodo.getValor() == valor) {
-                return true;
+                return nodo;
             }
         }
         return null;
