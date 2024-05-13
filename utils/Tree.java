@@ -37,25 +37,22 @@ public class Tree <T extends Comparable<T>> {
         }
     }
 
-    public TreeNode HasElement(String id) {
+    public T buscar( T elem) {
         if (this.root == null) {
             return null;
         } else {
-            return HasElement(this.root, id);
+            return buscarE(this.root, elem);
         }
     }
 
-    private TreeNode HasElement(TreeNode nodo, String id) {
-        if (nodo.getValor() > valor) {
-            if (nodo.getIzq() != null) {
-                return HasElement(nodo.getIzq(), valor);
-             }
-        } else {
-            if (nodo.getDer() != null) {
-                return HasElement(nodo.getDer(), valor);
-            } else if (nodo.getValor() == valor) {
-                return nodo;
-            }
+
+    private T buscarE(TreeNode<T> root, T elem) {
+        if(root.getValor()==elem){
+            return elem;
+        }else if((root.getValor().compareTo(elem)<0)){
+            return buscar(elem);
+        }else if ((root.getValor().compareTo(elem)>0)){
+            return buscar(elem);
         }
         return null;
     }

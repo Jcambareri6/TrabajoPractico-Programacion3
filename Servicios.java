@@ -12,25 +12,28 @@ import java.util.List;
 public class Servicios {
 
 	private Tree <Tarea> tareas;
-	private Tree <Procesador> procesadores;
-	
+
 	/*
      * Expresar la complejidad temporal del constructor.
      */
 	public Servicios(String pathProcesadores, String pathTareas)
 	{
 		CSVReader reader = new CSVReader();
-		tareas = reader.readTasks(pathTareas);
-		procesadores = reader.readProcessors(pathProcesadores);															
+		
+		this.tareas = reader.readTasks(pathTareas);
+		//reader.readTasks(pathTareas);																	
 	}
 
+	
+	
+	
 	// /*
     //  * Expresar la complejidad temporal del servicio 1.
-    //  */
-	// //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
+    
+	 //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
 	public Tarea servicio1(String ID) {	
-		Tarea tarea = tareas.HasElement(ID);
-	}
+		return tareas.buscar(ID);
+	 }
     
     // /*
     //  *-Expresar la complejidad temporal del servicio 2.
