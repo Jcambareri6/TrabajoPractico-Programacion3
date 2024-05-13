@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
-
-
 /**
  * NO modificar la interfaz de esta clase ni sus métodos públicos.
  * Sólo se podrá adaptar el nombre de la clase "Tarea" según sus decisiones
@@ -28,11 +24,7 @@ public class Servicios {
 		//reader.readTasks(pathTareas);																	
 	}
 
-	public  void  getProcesadores(){
-		for (Procesador  proc : this.procesadores){
-			System.out.println(proc.getId());
-		}
-	}
+	
 	public  void  getTareas(){
 		for (Tarea  tarea : this.Tareas){
 			System.out.println(tarea.toString());

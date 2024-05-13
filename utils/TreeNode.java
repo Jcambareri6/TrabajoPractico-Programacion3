@@ -3,6 +3,8 @@ public class TreeNode <T extends Comparable<T>>{
      private T valor; 
      private TreeNode<T> izq;
      private TreeNode<T> der;
+
+     
     public TreeNode(T valor) {
         this.valor= valor; 
         this.izq = null; 

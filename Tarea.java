@@ -5,7 +5,6 @@ public class Tarea implements Comparable<Tarea>{
     private int tiempoEjecucion;
     private String nombre;
     private boolean esCritica;
-   
     private int nivelDePrioridad;
 
     public Tarea(String id,int tiempoEjecucion,String nombre, boolean esCritica, int nivelDePrioridad) {

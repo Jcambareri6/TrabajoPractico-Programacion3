@@ -2,7 +2,7 @@
 
 
 
-public class Procesador {
+public class Procesador implements Comparable<Procesador>{
     private String id;
     private String codigo;
     private boolean EstaRefrigerado;
@@ -45,6 +45,12 @@ public class Procesador {
 
     public void setAñoFuncionamiento(int añoFuncionamiento) {
         this.añoFuncionamiento = añoFuncionamiento;
+    }
+
+    @Override
+    public int compareTo(Procesador o) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
     }
     
     
