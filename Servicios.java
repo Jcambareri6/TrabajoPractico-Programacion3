@@ -25,19 +25,15 @@ public class Servicios {
 	}
 
 	
-	public  void  getTareas(){
-		for (Tarea  tarea : this.Tareas){
-			System.out.println(tarea.toString());
-		}
-	}
+	
 	
 	// /*
     //  * Expresar la complejidad temporal del servicio 1.
-    //  */
-	// //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
-	// public Tarea servicio1(String ID) {	
-
-	// }
+    
+	 //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
+	public Tarea servicio1(String ID) {	
+		return tareas.buscar(ID);
+	 }
     
     // /*
     //  *-Expresar la complejidad temporal del servicio 2.
