@@ -32,7 +32,7 @@ public class Servicios {
     
 	 //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
 	public Tarea servicio1(String ID) {	
-		return tareas.buscar(ID);
+		return tareas.buscarId(ID);
 	 }
     
     // /*
@@ -41,12 +41,16 @@ public class Servicios {
 	// todas las tareas críticas o no críticas y generar
 	// el listado apropiado resultante.*/
 
-	// public List<Tarea> servicio2(boolean esCritica) {}
-
+	public List<Tarea> servicio2(boolean esCritica) {
+		return tareas.esCritica(esCritica);
+	}
+	 
     // /*
     //  * Expresar la complejidad temporal del servicio 3.
 	//  *  Obtener todas las tareas entre 2 niveles de prioridad indicados.
     //  */
-	// public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {}
+	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
+		return tareas.entreNiveles(prioridadInferior,prioridadSuperior);
+	}
 
 }
