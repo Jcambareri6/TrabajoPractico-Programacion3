@@ -43,17 +43,16 @@ public class TreeTarea {
     }
 
     private Tarea buscarId(TreeNodeTarea tarea, String Id) {
-        if (tarea.getValor().getId() != Id) {
-            if (tarea.getIzq() != null){
-                return buscarId(tarea.getIzq(),Id);
-            }
-            if (tarea.getDer() != null){
-                return buscarId(tarea.getDer(),Id);
-            }
-        }
-        if (tarea.getValor().getId() == Id){
+        if (tarea.getValor().getId()==Id){
             return tarea.getValor();
-        } else return null;
+        }
+        if (tarea.getIzq() != null){
+            return (buscarId(tarea.getIzq(),Id));
+        }
+        if (tarea.getDer() != null){
+            return (buscarId(tarea.getDer(),Id));
+        }
+        return tarea.getValor();
     }
 
     public List<Tarea> esCritica(boolean esCritica){
@@ -91,8 +90,8 @@ public class TreeTarea {
     private List<Tarea> entreNiveles(TreeNodeTarea tarea, int prioridadInferior, int prioridadSuperior){
         List<Tarea> tareas = new ArrayList<>();
 
-        if (tarea.getValor().getNivelDePrioridad()>prioridadInferior 
-            && tarea.getValor().getNivelDePrioridad()<prioridadSuperior ){
+        if (tarea.getValor().getNivelDePrioridad()>=prioridadInferior 
+            && tarea.getValor().getNivelDePrioridad()<=prioridadSuperior ){
 
             tareas.add(tarea.getValor());
         }
