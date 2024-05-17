@@ -72,12 +72,7 @@ public class Tarea implements Comparable<Tarea>{
 
     @Override
     public int compareTo(Tarea o) {
-    if(this.getNivelDePrioridad()>o.getNivelDePrioridad()){
-        return 1;
-    }else if( this.getNivelDePrioridad()<o.getNivelDePrioridad()){
-        return -1;
-    }
-    return 0;
+       return  this.getId().compareTo(o.getId());
     }
 
 }

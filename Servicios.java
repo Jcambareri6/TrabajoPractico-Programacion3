@@ -52,5 +52,8 @@ public class Servicios {
 	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
 		return tareas.entreNiveles(prioridadInferior,prioridadSuperior);
 	}
+	public void recorrerEnOrden(){
+		this.tareas.imprimirEnOrdenPublico();
+	}
 
 }

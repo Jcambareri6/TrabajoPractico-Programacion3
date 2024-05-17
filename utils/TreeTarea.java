@@ -17,14 +17,14 @@ public class TreeTarea {
     }
 
     private void agregar(TreeNodeTarea tarea, Tarea valor) {
-        if (tarea.getValor().getNivelDePrioridad() > valor.getNivelDePrioridad()) {
+        if (tarea.getValor().compareTo(valor)<0) {
             if(tarea.getIzq() == null) {
                 TreeNodeTarea aux = new TreeNodeTarea(valor);
                 tarea.setIzq(aux);
             } else {
                 agregar(tarea.getIzq(),valor);
             }
-        }else if (tarea.getValor().getNivelDePrioridad() < valor.getNivelDePrioridad()) {
+        }else if (tarea.getValor().compareTo(valor)>0) {
             if (tarea.getDer() == null) {
                 TreeNodeTarea aux = new TreeNodeTarea(valor);
                 tarea.setDer(aux);
@@ -44,7 +44,7 @@ public class TreeTarea {
 
     private Tarea buscarId(TreeNodeTarea tarea, String Id) {
       
-        if (tarea.getValor().getId()==Id){
+        if (tarea.getValor().getId().equals(Id)){
             return (tarea.getValor());
         }
         if (tarea.getIzq() != null){
@@ -103,6 +103,15 @@ public class TreeTarea {
             tareas.addAll(entreNiveles(tarea.getDer(),prioridadInferior, prioridadSuperior));
         }
         return tareas;
+    }
+    public void imprimirEnOrdenPublico() {
+        imprimirEnOrden(this.root); // Llama al método privado con la raíz del árbol
+    }
+    private void imprimirEnOrden(TreeNodeTarea nodo) {
+        if (nodo == null) return;
+        imprimirEnOrden(nodo.getIzq()); // Cambio aquí
+        System.out.print(nodo.getValor() + " ");
+        imprimirEnOrden(nodo.getDer()); // Cambio aquí
     }
 }
     
