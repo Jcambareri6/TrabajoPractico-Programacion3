@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Servicios {
 
-	private Tree <Tarea> tareas;
+	private TreeTarea tareas;
 
 	/*
      * Expresar la complejidad temporal del constructor.
