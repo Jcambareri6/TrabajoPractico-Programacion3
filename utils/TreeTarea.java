@@ -43,8 +43,9 @@ public class TreeTarea {
     }
 
     private Tarea buscarId(TreeNodeTarea tarea, String Id) {
+      
         if (tarea.getValor().getId()==Id){
-            return tarea.getValor();
+            return (tarea.getValor());
         }
         if (tarea.getIzq() != null){
             return (buscarId(tarea.getIzq(),Id));
@@ -52,7 +53,7 @@ public class TreeTarea {
         if (tarea.getDer() != null){
             return (buscarId(tarea.getDer(),Id));
         }
-        return tarea.getValor();
+        return null;
     }
 
     public List<Tarea> esCritica(boolean esCritica){
