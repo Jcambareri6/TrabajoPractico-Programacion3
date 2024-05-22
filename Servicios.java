@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -8,7 +10,8 @@ import java.util.List;
  */
 public class Servicios {
 
-	private TreeTarea tareas;
+	private HashMap tareas;
+	private ArrayList<Tarea> tareas2;
 
 	/*
      * Expresar la complejidad temporal del constructor.
@@ -17,7 +20,7 @@ public class Servicios {
 	{
 		CSVReader reader = new CSVReader();
 		
-		this.tareas = reader.readTasks(pathTareas);
+		//reader.readTasks(pathTareas);
 		//reader.readTasks(pathTareas);																	
 	}
 
@@ -57,7 +60,7 @@ public class Servicios {
 
 	//PARTE 2
 
-	/*hora se desea establecer una asignación de todas las tareas a los distintos procesadores con el
+	/*ahora se desea establecer una asignación de todas las tareas a los distintos procesadores con el
 	objetivo de minimizar el tiempo final de ejecución. Establecemos el tiempo final de ejecución como el
 	tiempo máximo de ejecución de un procesador una vez que todas las tareas fueron asignadas.
 	Además, se sabe que tenemos ciertas restricciones para asignar una tarea a un procesador:

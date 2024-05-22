@@ -1,6 +1,6 @@
 
 
-public class Tarea implements Comparable<Tarea>{
+public class Tarea{
     private String id;
     private int tiempoEjecucion;
     private String nombre;
@@ -68,11 +68,6 @@ public class Tarea implements Comparable<Tarea>{
     public String toString() {
         return "Tarea [id=" + id + ", tiempoEjecucion=" + tiempoEjecucion + ", nombre=" + nombre + ", esCritica="
                 + esCritica + ", nivelDePrioridad=" + nivelDePrioridad + "]";
-    }
-
-    @Override
-    public int compareTo(Tarea o) {
-       return  this.getId().compareTo(o.getId());
     }
 
 }
