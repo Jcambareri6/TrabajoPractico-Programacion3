@@ -1,6 +1,3 @@
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,5 +52,39 @@ public class Servicios {
 	public void recorrerEnOrden(){
 		this.tareas.imprimirEnOrdenPublico();
 	}
+
+
+
+	//PARTE 2
+
+	/*hora se desea establecer una asignación de todas las tareas a los distintos procesadores con el
+	objetivo de minimizar el tiempo final de ejecución. Establecemos el tiempo final de ejecución como el
+	tiempo máximo de ejecución de un procesador una vez que todas las tareas fueron asignadas.
+	Además, se sabe que tenemos ciertas restricciones para asignar una tarea a un procesador:
+	● Primero, ningún procesador podrá ejecutar 2 tareas críticas de forma consecutiva.
+	● Segundo, los procesadores no refrigerados no podrán dedicar más de X tiempo de ejecución a
+	las tareas asignadas. El tiempo X será un parámetro establecido por el usuario al momento de
+	solicitar la asignación de las tareas a los procesadores.
+	*/
+
+	/* EJEMPLO DE ESTRUCTURA BACKTRACKING
+	 void BackAtila (estado e, int nroPisada) {
+    if ( ! e.HayMovimientos() ){
+        if (( nroPisada== e.cantPisadas() ) && (e.vecinaOrigen())){
+            imprimirSolucion(e); 
+        }
+    } else{
+            movimiento movSgte;
+            int nrohijo=1;
+            while ( hijos(nrohijo, e, movSgte)){
+                if ( e.esFactible(movSgte) ){
+                    BackAtila( e.aplicarMov(movSgte), nroPisada+1);
+                    nrohijo++;
+                }
+            }
+    }
+	}
+	 */
+
 
 }
