@@ -18,6 +18,7 @@ public class Servicios {
 
 	private HashMap<String,Tarea> tareasPorId;//GUARDA POR ID 
 	private ArrayList<Tarea> tareasCSV;
+	private ArrayList<Procesador> procesadoresCSV;
 	LinkedList <Tarea> tareasPrioridadCritica;
 	LinkedList <Tarea> tareasSinPrioridadCritica;
 
@@ -28,6 +29,7 @@ public class Servicios {
 	{
 		CSVReader reader = new CSVReader();
 		this.tareasCSV= reader.readTasks(pathTareas);
+		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
 		this.tareasPrioridadCritica = new LinkedList<Tarea>();
 		this.tareasSinPrioridadCritica= new LinkedList<Tarea>();
 		this.tareasPorId =  new HashMap<String,Tarea>();
@@ -54,7 +56,7 @@ public class Servicios {
     //  * Expresar la complejidad temporal del servicio 1.
     
 	 //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
-	public Tarea servicio1(String ID) {	//complejidad o O(1)
+	public Tarea servicio1(String ID) {	//complejidad O(1)
 		return this.tareasPorId.get(ID);
 	 }
     
@@ -64,11 +66,11 @@ public class Servicios {
 	// todas las tareas críticas o no críticas y generar
 	// el listado apropiado resultante.*/
 
-	 public List<Tarea> servicio2(boolean esCritica) {
+	 public List<Tarea> servicio2(boolean esCritica) { //complejidad O(n)
 		if(esCritica){
-		 return new LinkedList<>(this.tareasPrioridadCritica); // cuanto es la complejida?
+		    return this.tareasPrioridadCritica;
 		}else{
-			return new LinkedList<>(this.tareasSinPrioridadCritica);
+			return this.tareasSinPrioridadCritica;
 		}
 	 	
 	 }

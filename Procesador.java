@@ -1,18 +1,21 @@
-
-
-
+import java.util.ArrayList;
 
 public class Procesador implements Comparable<Procesador>{
     private String id;
     private String codigo;
     private boolean EstaRefrigerado;
     private int añoFuncionamiento;
+    private ArrayList<Tarea> tareas;
 
     public Procesador(String id, String codigo, boolean estaRefrigerado, int añoFuncionamiento) {
         this.id = id;
         this.codigo = codigo;
         this.EstaRefrigerado = estaRefrigerado;
         this.añoFuncionamiento = añoFuncionamiento;
+        tareas = new ArrayList<>();
+    }
+    public void agregarTarea(Tarea t){
+        tareas.add(t);
     }
 
     public String getId() {
