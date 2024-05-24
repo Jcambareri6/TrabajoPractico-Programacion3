@@ -14,8 +14,36 @@ public class Procesador implements Comparable<Procesador>{
         this.añoFuncionamiento = añoFuncionamiento;
         tareas = new ArrayList<>();
     }
+    public boolean puedeAsignarTarea(Tarea t,int x){
+        if (this.isEstaRefrigerado()){
+            return true;
+        } else{
+            int tiempo = 0;
+            for (Tarea tarea : tareas) {
+                tiempo = tiempo + tarea.getTiempoEjecucion();
+            }
+            if (tiempo + t.getTiempoEjecucion() <= x){
+                return true;
+            } else return false;
+
+        }
+    }
+    public boolean tieneDosCriticas(){
+        int n=0;
+        for (Tarea tarea : tareas) {
+            if (tarea.isEsCritica()){
+                n++;
+            }
+        }
+        return n>=2;
+    }
+
     public void agregarTarea(Tarea t){
         tareas.add(t);
+    }
+
+    public void borrarTarea(Tarea t){
+        tareas.remove(t);
     }
 
     public String getId() {
