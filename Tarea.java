@@ -63,6 +63,10 @@ public class Tarea{
     public void setTiempoEjecucion(int tiempoEjecucion) {
         this.tiempoEjecucion = tiempoEjecucion;
     }
+    public boolean entrePrioridades (int prioridadInferior,int prioridadSuperior){
+        int valorPrioridad =this.getNivelDePrioridad();
+        return valorPrioridad>=prioridadInferior && valorPrioridad<=prioridadSuperior;
+    }
 
     @Override
     public String toString() {

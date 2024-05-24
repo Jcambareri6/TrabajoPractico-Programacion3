@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 
@@ -31,7 +32,7 @@ public class CSVReader {
 			Integer prioridad = Integer.parseInt(line[4].trim());
 			// Aca instanciar lo que necesiten en base a los datos leidos
 			Tarea  Tarea = new Tarea(id,tiempo,nombre,critica,prioridad);
-			TareasDoc.add(Tarea); // ROMPE ENCAPSULAMIENTO ? CONSULTAR 
+			TareasDoc.add(Tarea); 
 		}
 		return TareasDoc;
 		
