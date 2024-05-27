@@ -101,10 +101,15 @@ public class Servicios {
 			System.out.println(EstadoSolucion);
 		}
 		
-		for (Procesador p: procesadoresCSV) {
-			
-			if(p.puedeAsignarTarea(this.tareasCSV.getFirst(), x) && p.tieneDosCriticas()){
-
+		int i=0;
+		int estado=0;
+		for (Tarea t: tareasCSV){
+			for (Procesador p: procesadoresCSV) {
+				if(p.puedeAsignarTarea(t,tiempoMaximo) && !p.tieneDosCriticas()){
+					p.agregarTarea(t);
+					estado = estado + t.getTiempoEjecucion();
+					resolverBacktracking(estado, tiempoMaximo, tareasCSV.size(), i+1);
+				}
 			}
 		}
 
