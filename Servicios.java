@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.print.DocFlavor.STRING;
 
 
 /**
@@ -17,7 +16,7 @@ import javax.print.DocFlavor.STRING;
 public class Servicios {
 
 	private HashMap<String,Tarea> tareasPorId;//GUARDA POR ID 
-	private ArrayList<Tarea> tareasCSV;
+	private LinkedList<Tarea> tareasCSV;
 	private ArrayList<Procesador> procesadoresCSV;
 	LinkedList <Tarea> tareasPrioridadCritica;
 	LinkedList <Tarea> tareasSinPrioridadCritica;
@@ -66,7 +65,7 @@ public class Servicios {
 	// todas las tareas críticas o no críticas y generar
 	// el listado apropiado resultante.*/
 
-	 public List<Tarea> servicio2(boolean esCritica) { //complejidad O(n)
+	 public List<Tarea> servicio2(boolean esCritica) { //complejidad o(1)
 		if(esCritica){
 		    return this.tareasPrioridadCritica;
 		}else{
@@ -77,9 +76,12 @@ public class Servicios {
 	 
     // /*
     //  * Expresar la complejidad temporal del servicio 3.
+	// complejidad o (n) + o(m) donde N es la cantidad de tareas con prioridad true y 
+	//  m  es la cantidad de tareas con prioridad false en total suma la entrada total de tareas
+	// pero estas se recorren separadas 
 	//  *  Obtener todas las tareas entre 2 niveles de prioridad indicados.
     //  */
-	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
+	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) { 
 	 	List <Tarea> tareaEntreNiveles = new LinkedList<>();
 		for (Tarea tarea : this.tareasPrioridadCritica) {
 		
@@ -94,42 +96,20 @@ public class Servicios {
 	  	 } 
 		return tareaEntreNiveles;
 	 }
-	// public void recorrerEnOrden(){
-	// 	this.tareas.imprimirEnOrdenPublico();
-	// }
+	 public void resolverBacktracking(int EstadoSolucion,int tiempoMaximo,int tope,int indice){
+		if(indice==tope){
+			System.out.println(EstadoSolucion);
+		}
+		
+		for (Procesador p: procesadoresCSV) {
+			
+			if(p.puedeAsignarTarea(this.tareasCSV.getFirst(), x) && p.tieneDosCriticas()){
 
+			}
+		}
 
+	 }
 
-	//PARTE 2
-
-	/*ahora se desea establecer una asignación de todas las tareas a los distintos procesadores con el
-	objetivo de minimizar el tiempo final de ejecución. Establecemos el tiempo final de ejecución como el
-	tiempo máximo de ejecución de un procesador una vez que todas las tareas fueron asignadas.
-	Además, se sabe que tenemos ciertas restricciones para asignar una tarea a un procesador:
-	● Primero, ningún procesador podrá ejecutar 2 tareas críticas de forma consecutiva.
-	● Segundo, los procesadores no refrigerados no podrán dedicar más de X tiempo de ejecución a
-	las tareas asignadas. El tiempo X será un parámetro establecido por el usuario al momento de
-	solicitar la asignación de las tareas a los procesadores.
-	*/
-
-	/* EJEMPLO DE ESTRUCTURA BACKTRACKING
-	 void BackAtila (estado e, int nroPisada) {
-    if ( ! e.HayMovimientos() ){
-        if (( nroPisada== e.cantPisadas() ) && (e.vecinaOrigen())){
-            imprimirSolucion(e); 
-        }
-    } else{
-            movimiento movSgte;
-            int nrohijo=1;
-            while ( hijos(nrohijo, e, movSgte)){
-                if ( e.esFactible(movSgte) ){
-                    BackAtila( e.aplicarMov(movSgte), nroPisada+1);
-                    nrohijo++;
-                }
-            }
-    }
-	}
-	 */
 
 
 }
