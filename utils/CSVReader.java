@@ -37,29 +37,27 @@ public class CSVReader {
 		return TareasDoc;
 		
 	}
-	
-public ArrayList<Procesador> readProcessors(String processorPath) {
-		// LEE EL ARCHIVO DE PROCESADORES 
+	public void readProcessors(String processorPath) {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
 		ArrayList<String[]> lines = this.readContent(processorPath);
-		ArrayList<Procesador> procesadoresDoc = new ArrayList<>();
+		ArrayList<Procesador> procesadores = new ArrayList<>();
 		
+		System.out.println(lines.get(4).toString());
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
 			String id = line[0].trim();
 			String codigo = line[1].trim();
 			Boolean refrigerado = Boolean.parseBoolean(line[2].trim());
 			Integer anio = Integer.parseInt(line[3].trim());
-			// Aca instanciar lo que necesiten en base a los datos leidos
-			Procesador procesador = new Procesador(id, codigo, refrigerado, anio);
-			procesadoresDoc.add(procesador);
+			// Procesador procesador = new Procesador(id, codigo, refrigerado, anio);
+			// procesadores.add(procesador);
+			
 		}
-		return procesadoresDoc;
+		// return procesadores;
 	}
-
 	private ArrayList<String[]> readContent(String path) {
 		ArrayList<String[]> lines = new ArrayList<String[]>();
 

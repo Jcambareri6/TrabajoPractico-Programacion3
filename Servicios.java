@@ -28,7 +28,9 @@ public class Servicios {
 	{
 		CSVReader reader = new CSVReader();
 		this.tareasCSV= reader.readTasks(pathTareas);
-		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
+		
+		//this.procesadoresCSV = reader.readProcessors(pathProcesadores);
+		reader.readProcessors(pathProcesadores);
 		this.tareasPrioridadCritica = new LinkedList<Tarea>();
 		this.tareasSinPrioridadCritica= new LinkedList<Tarea>();
 		this.tareasPorId =  new HashMap<String,Tarea>();
@@ -73,6 +75,9 @@ public class Servicios {
 		}
 	 	
 	 }
+	  public ArrayList<Procesador> DevolverTareas (){
+		return this.procesadoresCSV;
+	  }
 	 
     // /*
     //  * Expresar la complejidad temporal del servicio 3.
