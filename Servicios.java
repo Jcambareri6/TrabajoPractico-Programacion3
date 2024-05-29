@@ -98,14 +98,17 @@ public class Servicios {
 	 }
 	 public void resolverBacktracking(int EstadoSolucion,int tiempoMaximo,int tope,int indice){
 		if(indice==tope){
+
 			System.out.println(EstadoSolucion);
 		}
 		
 		for (Procesador p: procesadoresCSV) {
 			
-			if(p.puedeAsignarTarea(this.tareasCSV.getFirst(), x) && p.tieneDosCriticas()){
-
+			if(p.puedeAsignarTarea(this.tareasCSV.getFirst(), tiempoMaximo) && p.tieneDosCriticas()){
+				p.agregarTarea(this.tareasCSV.getFirst());
 			}
+			
+			
 		}
 
 	 }
