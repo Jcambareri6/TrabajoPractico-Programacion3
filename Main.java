@@ -13,5 +13,6 @@ public class Main {
 		// servicios.agregarProcesadores(new Procesador("COD_P2", "COD1", true, 0));
 		System.out.println("hola");
 		 servicios.AsignarTareas(400);
+		 servicios.tareasDeProcesadores();
 	}
 }

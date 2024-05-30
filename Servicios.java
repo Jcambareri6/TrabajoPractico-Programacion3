@@ -110,32 +110,30 @@ public class Servicios {
 	private void resolverBacktracking(int EstadoSolucion, Procesador p, int tiempoMaximo, int tope, int indice) {
 		if (indice == tope) {
 			if (p.getTiempoMax() == 0 || p.esMejorSolucion(EstadoSolucion)) {
-
 				p.setTiempoMax(EstadoSolucion);
-				System.out
-						.println("procesador " + " " + p.toString() + "tiempo ejecucion max" + " " + p.getTiempoMax());
 			}
+			indice=0;
 		} else {
 			for (Procesador pr : procesadoresCSV) {
 				Tarea t = this.tareasCSV.get(indice);
 				System.out.println("tarea" + t);
 				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
-
 					pr.agregarTarea(t);
 					EstadoSolucion += t.getTiempoEjecucion();
 					resolverBacktracking(EstadoSolucion, pr, tiempoMaximo, tareasCSV.size(), indice+1);
 					pr.borrarTarea(t);
 					EstadoSolucion -= t.getTiempoEjecucion();
-
-				}
-
-			}
-			if (indice == tope) {
-				indice = 0;
+				}		
 			}
 		}
-
 	}
+
+	public void tareasDeProcesadores(){
+		for (Procesador p: procesadoresCSV) {
+			System.out.println(p + " " + p.getTareas());
+		}
+	}
+
 	
 
 }

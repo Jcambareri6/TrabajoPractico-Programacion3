@@ -97,6 +97,11 @@ public class Procesador {
     public String toString() {
         return "Procesador [id=" + id + ", codigo=" + codigo + "]";
     }
+
+    public ArrayList<Tarea> getTareas(){
+        ArrayList<Tarea> copia = new ArrayList<>(tareas);
+        return copia;
+    }
    
     
     
