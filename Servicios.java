@@ -1,12 +1,9 @@
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.LinkedList;
 import java.util.List;
-
-
 
 /**
  * NO modificar la interfaz de esta clase ni sus métodos públicos.
@@ -15,117 +12,130 @@ import java.util.List;
  */
 public class Servicios {
 
-	private HashMap<String,Tarea> tareasPorId;//GUARDA POR ID 
+	private HashMap<String, Tarea> tareasPorId;// GUARDA POR ID
 	private LinkedList<Tarea> tareasCSV;
 	private ArrayList<Procesador> procesadoresCSV;
-	LinkedList <Tarea> tareasPrioridadCritica;
-	LinkedList <Tarea> tareasSinPrioridadCritica;
+	LinkedList<Tarea> tareasPrioridadCritica;
+	LinkedList<Tarea> tareasSinPrioridadCritica;
 
 	/*
-     * Expresar la complejidad temporal del constructor.
-     */
-	public Servicios(String pathProcesadores, String pathTareas)
-	{
+	 * Expresar la complejidad temporal del constructor.
+	 */
+	public Servicios(String pathProcesadores, String pathTareas) {
 		CSVReader reader = new CSVReader();
-		this.tareasCSV= reader.readTasks(pathTareas);
+		this.tareasCSV = reader.readTasks(pathTareas);
+
+		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
 		
-		//this.procesadoresCSV = reader.readProcessors(pathProcesadores);
-		reader.readProcessors(pathProcesadores);
 		this.tareasPrioridadCritica = new LinkedList<Tarea>();
-		this.tareasSinPrioridadCritica= new LinkedList<Tarea>();
-		this.tareasPorId =  new HashMap<String,Tarea>();
+		this.tareasSinPrioridadCritica = new LinkedList<Tarea>();
+		this.tareasPorId = new HashMap<String, Tarea>();
 		this.AgregarTarea();
-		
-		
-		//reader.readTasks(pathTareas);
-		//reader.readTasks(pathTareas);																	
+
+		// reader.readTasks(pathTareas);
+		// reader.readTasks(pathTareas);
 	}
-	
-	private void AgregarTarea(){
+
+	public void agregarProcesadores(Procesador p) {
+		this.procesadoresCSV.add(p);
+	}
+
+	private void AgregarTarea() {
 		for (Tarea tarea : this.tareasCSV) {
 			this.tareasPorId.put(tarea.getId(), tarea);
-			if(tarea.isEsCritica()){
+			if (tarea.isEsCritica()) {
 				this.tareasPrioridadCritica.add(tarea);
-			}else{
+			} else {
 				this.tareasSinPrioridadCritica.add(tarea);
 			}
 		}
 	}
-	
-	
-	// /*
-    //  * Expresar la complejidad temporal del servicio 1.
-    
-	 //Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
-	public Tarea servicio1(String ID) {	//complejidad O(1)
-		return this.tareasPorId.get(ID);
-	 }
-    
 
-    //  *-Expresar la complejidad temporal del servicio 2.
+	// /*
+	// * Expresar la complejidad temporal del servicio 1.
+
+	// Servicio 1: Dado un identificador de tarea obtener toda la información de la
+	// tarea asociada.
+	public Tarea servicio1(String ID) { // complejidad O(1)
+		return this.tareasPorId.get(ID);
+	}
+
+	// *-Expresar la complejidad temporal del servicio 2.
 	// -Permitir que el usuario decida si quiere ver
 	// todas las tareas críticas o no críticas y generar
 	// el listado apropiado resultante.*/
 
-	 public List<Tarea> servicio2(boolean esCritica) { //complejidad o(1)
-		if(esCritica){
-		    return this.tareasPrioridadCritica;
-		}else{
+	public List<Tarea> servicio2(boolean esCritica) { // complejidad o(1)
+		if (esCritica) {
+			return this.tareasPrioridadCritica;
+		} else {
 			return this.tareasSinPrioridadCritica;
 		}
-	 	
-	 }
-	  public ArrayList<Procesador> DevolverTareas (){
-		return this.procesadoresCSV;
-	  }
-	 
-    // /*
-    //  * Expresar la complejidad temporal del servicio 3.
-	// complejidad o (n) + o(m) donde N es la cantidad de tareas con prioridad true y 
-	//  m  es la cantidad de tareas con prioridad false en total suma la entrada total de tareas
-	// pero estas se recorren separadas 
-	//  *  Obtener todas las tareas entre 2 niveles de prioridad indicados.
-    //  */
-	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) { 
-	 	List <Tarea> tareaEntreNiveles = new LinkedList<>();
+
+	}
+
+	// /*
+	// * Expresar la complejidad temporal del servicio 3.
+	// complejidad o (n) + o(m) donde N es la cantidad de tareas con prioridad true
+	// y
+	// m es la cantidad de tareas con prioridad false en total suma la entrada total
+	// de tareas
+	// pero estas se recorren separadas
+	// * Obtener todas las tareas entre 2 niveles de prioridad indicados.
+	// */
+	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
+		List<Tarea> tareaEntreNiveles = new LinkedList<>();
 		for (Tarea tarea : this.tareasPrioridadCritica) {
-		
-			if(tarea.entrePrioridades(prioridadInferior, prioridadSuperior)){
+
+			if (tarea.entrePrioridades(prioridadInferior, prioridadSuperior)) {
 				tareaEntreNiveles.add(tarea);
 			}
-		} 
+		}
 		for (Tarea tarea : this.tareasSinPrioridadCritica) {
-		   if(tarea.entrePrioridades(prioridadInferior, prioridadSuperior)){
-			   tareaEntreNiveles.add(tarea);
-		   }
-	  	 } 
-		return tareaEntreNiveles;
-	 }
-	 public void resolverBacktracking(int EstadoSolucion,int tiempoMaximo,int tope,int indice){
-		if(indice==tope){
-
-			System.out.println(EstadoSolucion);
-		}
-		
-		int i=0;
-		int estado=0;
-		for (Tarea t: tareasCSV){
-			for (Procesador p: procesadoresCSV) {
-				if(p.puedeAsignarTarea(t,tiempoMaximo) && !p.tieneDosCriticas()){
-					p.agregarTarea(t);
-					estado = estado + t.getTiempoEjecucion();
-					
-					resolverBacktracking(estado, tiempoMaximo, tareasCSV.size(), i+1);
-				}
-								
-				procesadoresCSV.remove(t);
+			if (tarea.entrePrioridades(prioridadInferior, prioridadSuperior)) {
+				tareaEntreNiveles.add(tarea);
 			}
-			
-			
+		}
+		return tareaEntreNiveles;
+	}
+
+	public void AsignarTareas(int tiempoMaximo) {
+		if (tareasCSV.isEmpty()) {
+			System.out.println("no hay tareas para asignar");
+		} else {
+			resolverBacktracking(0, null, tiempoMaximo, this.tareasCSV.size(), 0);
+		}
+	}
+
+	private void resolverBacktracking(int EstadoSolucion, Procesador p, int tiempoMaximo, int tope, int indice) {
+		if (indice == tope) {
+			if (p.getTiempoMax() == 0 || p.esMejorSolucion(EstadoSolucion)) {
+
+				p.setTiempoMax(EstadoSolucion);
+				System.out
+						.println("procesador " + " " + p.toString() + "tiempo ejecucion max" + " " + p.getTiempoMax());
+			}
+		} else {
+			for (Procesador pr : procesadoresCSV) {
+				Tarea t = this.tareasCSV.get(indice);
+				System.out.println("tarea" + t);
+				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
+
+					pr.agregarTarea(t);
+					EstadoSolucion += t.getTiempoEjecucion();
+					resolverBacktracking(EstadoSolucion, pr, tiempoMaximo, tareasCSV.size(), indice+1);
+					pr.borrarTarea(t);
+					EstadoSolucion -= t.getTiempoEjecucion();
+
+				}
+
+			}
+			if (indice == tope) {
+				indice = 0;
+			}
 		}
 
-	 }
-
-
+	}
+	
 
 }

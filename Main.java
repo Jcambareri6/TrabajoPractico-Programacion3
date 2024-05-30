@@ -9,7 +9,9 @@ public class Main {
 	// 	System.out.println(servicios.servicio3(31,70));
 	//    servicios.resolverBacktracking(0, 9999950, 0, 0);
         // System.out.println(servicios.DevolverTareas());
-
-
+		// servicios.agregarProcesadores(new Procesador("P1", "COD1", true, 2010));
+		// servicios.agregarProcesadores(new Procesador("COD_P2", "COD1", true, 0));
+		System.out.println("hola");
+		 servicios.AsignarTareas(400);
 	}
 }
