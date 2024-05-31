@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class Main {
 
 	public static void main(String args[]) {
@@ -11,8 +9,8 @@ public class Main {
         // System.out.println(servicios.DevolverTareas());
 		// servicios.agregarProcesadores(new Procesador("P1", "COD1", true, 2010));
 		// servicios.agregarProcesadores(new Procesador("COD_P2", "COD1", true, 0));
-		System.out.println("hola");
-		 servicios.AsignarTareas(400);
-		 servicios.tareasDeProcesadores();
+		 System.out.println(servicios.AsignarTareas(100));
+		 //servicios.tareasDeProcesadores();
+		 
 	}
 }

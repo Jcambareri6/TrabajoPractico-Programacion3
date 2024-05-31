@@ -17,6 +17,8 @@ public class Servicios {
 	private ArrayList<Procesador> procesadoresCSV;
 	LinkedList<Tarea> tareasPrioridadCritica;
 	LinkedList<Tarea> tareasSinPrioridadCritica;
+	private int MejorSolucion = 0;
+	private SolucionBacktracking SolucionBacktracking;
 
 	/*
 	 * Expresar la complejidad temporal del constructor.
@@ -32,6 +34,7 @@ public class Servicios {
 		this.tareasPorId = new HashMap<String, Tarea>();
 		this.AgregarTarea();
 
+		this.SolucionBacktracking = new SolucionBacktracking();
 		// reader.readTasks(pathTareas);
 		// reader.readTasks(pathTareas);
 	}
@@ -99,32 +102,41 @@ public class Servicios {
 		return tareaEntreNiveles;
 	}
 
-	public void AsignarTareas(int tiempoMaximo) {
+	public SolucionBacktracking AsignarTareas(int tiempoMaximo) {
 		if (tareasCSV.isEmpty()) {
-			System.out.println("no hay tareas para asignar");
+			return null;
 		} else {
-			resolverBacktracking(0, null, tiempoMaximo, this.tareasCSV.size(), 0);
+			this.resolverBacktracking(null,tiempoMaximo);
+			return SolucionBacktracking;
 		}
 	}
 
-	private void resolverBacktracking(int EstadoSolucion, Procesador p, int tiempoMaximo, int tope, int indice) {
-		if (indice == tope) {
-			if (p.getTiempoMax() == 0 || p.esMejorSolucion(EstadoSolucion)) {
-				p.setTiempoMax(EstadoSolucion);
+	private void resolverBacktracking(Procesador EstadoActual, int tiempoMaximo) {
+		if (this.tareasCSV.isEmpty()) {
+			if(MejorSolucion==0||EstadoActual.getTiempoMax() <= MejorSolucion){
+				MejorSolucion=EstadoActual.getTiempoMax();
+
+				//guardar los procesadores	
+				SolucionBacktracking.setTiempoPeorProcesador(MejorSolucion);
+			} else{
+				SolucionBacktracking.deleteProcesadores();
 			}
-			indice=0;
 		} else {
+			Tarea t = tareasCSV.pop();
 			for (Procesador pr : procesadoresCSV) {
-				Tarea t = this.tareasCSV.get(indice);
-				System.out.println("tarea" + t);
 				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
 					pr.agregarTarea(t);
-					EstadoSolucion += t.getTiempoEjecucion();
-					resolverBacktracking(EstadoSolucion, pr, tiempoMaximo, tareasCSV.size(), indice+1);
+					pr.setTiempoMax(pr.getTiempoMax()+t.getTiempoEjecucion()); 
+					SolucionBacktracking.addProcesador(pr);
+
+					resolverBacktracking(pr,tiempoMaximo);
+					
 					pr.borrarTarea(t);
-					EstadoSolucion -= t.getTiempoEjecucion();
-				}		
+					pr.setTiempoMax(pr.getTiempoMax()-t.getTiempoEjecucion()); 
+						
+					}			
 			}
+			tareasCSV.addFirst(t);	
 		}
 	}
 
@@ -133,6 +145,16 @@ public class Servicios {
 			System.out.println(p + " " + p.getTareas());
 		}
 	}
+
+	public int getMejorSolucion() {
+		return MejorSolucion;
+	}
+
+	public void setMejorSolucion(int mejorSolucion) {
+		MejorSolucion = mejorSolucion;
+	}
+
+	
 
 	
 

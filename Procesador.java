@@ -16,6 +16,7 @@ public class Procesador {
         this.TiempoMax=0;
         tareas = new ArrayList<>();
     }
+    
     public int getTiempoMax() {
         return TiempoMax;
     }
@@ -95,7 +96,7 @@ public class Procesador {
     }
     @Override
     public String toString() {
-        return "Procesador [id=" + id + ", codigo=" + codigo + "]";
+        return "Procesador [id=" + id + ", codigo=" + codigo + ", tareas=" + getTareas() + "]";
     }
 
     public ArrayList<Tarea> getTareas(){
