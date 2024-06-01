@@ -23,6 +23,11 @@ public class Procesador {
     public void setTiempoMax(int tiempoMax) {
         TiempoMax = tiempoMax;
     }
+
+    public void deleteTareas(){
+        this.tareas = new ArrayList<>();
+    }
+    
     public boolean puedeAsignarTarea(Tarea t,int x){
         
         if (this.isEstaRefrigerado()){

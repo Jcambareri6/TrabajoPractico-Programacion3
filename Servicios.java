@@ -120,6 +120,7 @@ public class Servicios {
 				SolucionBacktracking.setTiempoPeorProcesador(MejorSolucion);
 			} else{
 				SolucionBacktracking.deleteProcesadores();
+	
 			}
 		} else {
 			Tarea t = tareasCSV.pop();
