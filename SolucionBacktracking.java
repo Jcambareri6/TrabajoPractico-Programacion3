@@ -4,8 +4,10 @@ public class SolucionBacktracking {
     private ArrayList<Procesador> procesadores;
     private int tiempoPeorProcesador;
 
+
     public SolucionBacktracking(){
         this.procesadores=new ArrayList<>();
+        this.tiempoPeorProcesador=0;
         this.tiempoPeorProcesador=0;
     }
 
@@ -15,32 +17,46 @@ public class SolucionBacktracking {
     }
 
     public void getProcesadores(){
+        
         for (Procesador procesador : procesadores) {
             System.out.println(procesador.toString());
         }
     }
 
     public void deleteProcesadores(){
-        this.procesadores = new ArrayList<>();
+        this.procesadores = new ArrayList<Procesador>();
     }
-    public void getTareasDeProcesadores(){
-        for (Procesador procesador : procesadores) {
-            System.out.println(procesador.getTareas());
-        }
-    }
-
+    
     public int getTiempoPeorProcesador() {
-        return this.tiempoPeorProcesador;
+        int maxTiempoProcesador =0;
+        for (Procesador p : this.procesadores) {
+             maxTiempoProcesador = Math.max(maxTiempoProcesador, p.getTiempoMax());
+             //System.out.println(maxTiempoProcesador);
+             
+        }
+        return maxTiempoProcesador;
     }
     public void setTiempoPeorProcesador(int tiempoPeorProcesador) {
         this.tiempoPeorProcesador = tiempoPeorProcesador;
     }
+
+   
+   
 
 
     @Override
     public String toString() {
         return "SolucionBacktracking [procesadores=" + procesadores + ", tiempoPeorProcesador=" + tiempoPeorProcesador
                 + "]";
+    }
+    public SolucionBacktracking getCopia(){
+        SolucionBacktracking copia = new SolucionBacktracking();
+        copia.setTiempoPeorProcesador(tiempoPeorProcesador);
+        for (Procesador p : this.procesadores) {
+            copia.addProcesador(p.getCopia());
+        }
+    
+        return copia;
     }
 
     
