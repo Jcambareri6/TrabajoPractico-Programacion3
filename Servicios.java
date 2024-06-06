@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,36 +11,35 @@ public class Servicios {
 	private ArrayList<Procesador> procesadoresCSV;
 
 	//Estructuras para guardar las tareas
-	private HashMap<String, Tarea> tareasPorId;// GUARDA POR ID
+	private HashMap<String, Tarea> tareasPorId;
 	LinkedList<Tarea> tareasPrioridadCritica;
 	LinkedList<Tarea> tareasSinPrioridadCritica;
 
-	//Atributos para Backtracking y Gredy
-	private int MejorSolucion = 0;
-	private SolucionBacktracking SolucionBacktracking;
+	//Atributos para implementar Backtracking
+	private int MejorSolucion =Integer.MAX_VALUE;
+	private SolucionBacktracking SolucionBacktrackingTemporal;
+	private SolucionBacktracking SolucionBacktrackingFinal;
+	
 
-	/*
-	 * Expresar la complejidad temporal del constructor.
-	 */
+	// Expresar la complejidad temporal del constructor.
+	// complejidad?
 	public Servicios(String pathProcesadores, String pathTareas) {
 		CSVReader reader = new CSVReader();
 		this.tareasCSV = reader.readTasks(pathTareas);
 		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
 		
+		//Inicializacion de estructuras para tareas
 		this.tareasPrioridadCritica = new LinkedList<Tarea>();
 		this.tareasSinPrioridadCritica = new LinkedList<Tarea>();
 		this.tareasPorId = new HashMap<String, Tarea>();
-		this.AgregarTarea();
+		this.AgregarTareas();
 
-
-		this.SolucionBacktracking = new SolucionBacktracking();
+		//Inicializacion de atributos de Bacltracking
+		this.SolucionBacktrackingTemporal = new SolucionBacktracking();
+		this.SolucionBacktrackingFinal = new SolucionBacktracking();
 	}
 
-	public void agregarProcesadores(Procesador p) {
-		this.procesadoresCSV.add(p);
-	}
-
-	private void AgregarTarea() {
+	private void AgregarTareas() {
 		for (Tarea tarea : this.tareasCSV) {
 			this.tareasPorId.put(tarea.getId(), tarea);
 			if (tarea.isEsCritica()) {
@@ -74,7 +72,6 @@ public class Servicios {
 		} else {
 			return this.tareasSinPrioridadCritica;
 		}
-
 	}
 
 	// Expresar la complejidad temporal del servicio 3.
@@ -101,49 +98,50 @@ public class Servicios {
 
 
 	
-	public SolucionBacktracking AsignarTareas(int tiempoMaximo) {
+	public SolucionBacktracking AsignarTareasConBacktracking(int tiempoMaximo) {
 		if (tareasCSV.isEmpty()) {
 			return null;
 		} else {
-			this.resolverBacktracking(null,tiempoMaximo);
-			return SolucionBacktracking;
+			
+			resolverBacktracking(0, tiempoMaximo);
+			return this.SolucionBacktrackingFinal;
+			
 		}
 	}
 
-	private void resolverBacktracking(Procesador EstadoActual, int tiempoMaximo) {
-		if (this.tareasCSV.isEmpty()) {
-			if(MejorSolucion==0||EstadoActual.getTiempoMax() <= MejorSolucion){
-				MejorSolucion=EstadoActual.getTiempoMax();
-
-				//guardar los procesadores	
-				SolucionBacktracking.setTiempoPeorProcesador(MejorSolucion);
-			} else{
-				SolucionBacktracking.deleteProcesadores();
+	private void resolverBacktracking(int EstadoActual, int tiempoMaximo) {
 	
+		if (this.tareasCSV.isEmpty()) {
+			int maxTiempoProcesador=this.SolucionBacktrackingTemporal.getTiempoPeorProcesador();
+
+			if (MejorSolucion == Integer.MAX_VALUE || maxTiempoProcesador < MejorSolucion) {
+				MejorSolucion = maxTiempoProcesador;
+				SolucionBacktrackingTemporal.setTiempoPeorProcesador(MejorSolucion);
+				this.SolucionBacktrackingFinal.deleteProcesadores();
+				this.SolucionBacktrackingFinal = this.SolucionBacktrackingTemporal.getCopia();
 			}
+
+		    this.SolucionBacktrackingTemporal.deleteProcesadores();
+
 		} else {
-			Tarea t = tareasCSV.pop();
+			Tarea t = this.tareasCSV.removeFirst();
+
 			for (Procesador pr : procesadoresCSV) {
 				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
+					int tiempoMaxPrevio = pr.getTiempoMax();
 					pr.agregarTarea(t);
-					pr.setTiempoMax(pr.getTiempoMax()+t.getTiempoEjecucion()); 
-					SolucionBacktracking.addProcesador(pr);
+					pr.setTiempoMax(tiempoMaxPrevio + t.getTiempoEjecucion());
 
-					resolverBacktracking(pr,tiempoMaximo);
-					
+					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
+						this.SolucionBacktrackingTemporal.addProcesador(pr.getCopia());
+						resolverBacktracking(pr.getTiempoMax(), tiempoMaximo);
+					}
+				
 					pr.borrarTarea(t);
-					pr.setTiempoMax(pr.getTiempoMax()-t.getTiempoEjecucion()); 
-						
-				}	
-						
+					pr.setTiempoMax(tiempoMaxPrevio);
+				}
 			}
-			tareasCSV.addFirst(t);	
-		}
-	}
-
-	public void tareasDeProcesadores(){
-		for (Procesador p: procesadoresCSV) {
-			System.out.println(p + " " + p.getTareas());
+			tareasCSV.addFirst(t);
 		}
 	}
 
@@ -154,9 +152,4 @@ public class Servicios {
 	public void setMejorSolucion(int mejorSolucion) {
 		MejorSolucion = mejorSolucion;
 	}
-
-	
-
-	
-
 }

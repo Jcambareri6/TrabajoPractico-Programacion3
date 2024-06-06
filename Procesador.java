@@ -30,19 +30,11 @@ public class Procesador {
     }
     
     public boolean puedeAsignarTarea(Tarea t,int x){
-        if (this.isEstaRefrigerado()){
-            return true;
-        } else{
-            int tiempo = 0;
         
-            for (Tarea tarea : tareas) {
-                
-                tiempo = tiempo + tarea.getTiempoEjecucion();
-            }
-            if (tiempo + t.getTiempoEjecucion() <= x){
-                return true;
-            } else return false;
+        if (!this.isEstaRefrigerado() && this.getTiempoMax() + t.getTiempoEjecucion() > x) {
+            return false;
         }
+        return true;
     }
     
     public boolean tieneDosCriticas(){
@@ -101,11 +93,21 @@ public class Procesador {
 
     @Override
     public String toString() {
-        return "Procesador [id=" + id + ", codigo=" + codigo + ", tareas=" + getTareas() + "]";
+        return "Procesador [id=" + id + ", codigo=" + codigo + ", EstaRefrigerado=" + EstaRefrigerado
+                + ", añoFuncionamiento=" + añoFuncionamiento + ", TiempoMax=" + TiempoMax + ", tareas=" + tareas + "]";
     }
 
     public ArrayList<Tarea> getTareas(){
         ArrayList<Tarea> copia = new ArrayList<>(tareas);
         return copia;
     }
+    
+    public Procesador getCopia() {
+        Procesador copia = new Procesador(this.id, this.codigo, this.isEstaRefrigerado(), this.añoFuncionamiento);
+        for (Tarea t : this.tareas) {
+            copia.agregarTarea(t.getCopia());
+        }
+        copia.setTiempoMax(this.getTiempoMax());
+        return copia;
+    }  
 }

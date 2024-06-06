@@ -1,4 +1,4 @@
-public class Tarea{
+public class Tarea {
     private String id;
     private int tiempoEjecucion;
     private String nombre;
@@ -15,7 +15,6 @@ public class Tarea{
         } else {
             this.nivelDePrioridad = 0; // Establecer a 0 si está fuera de rango
         }
-    
     }
 
     public String getId() {
@@ -64,6 +63,9 @@ public class Tarea{
         int valorPrioridad =this.getNivelDePrioridad();
         return valorPrioridad>=prioridadInferior && valorPrioridad<=prioridadSuperior;
     }
+    public Tarea getCopia(){
+        return new Tarea(id, tiempoEjecucion, nombre, esCritica, nivelDePrioridad);
+    }
 
     @Override
     public String toString() {
@@ -72,3 +74,6 @@ public class Tarea{
     }
 
 }
+ 
+    
+

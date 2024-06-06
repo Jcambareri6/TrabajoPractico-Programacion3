@@ -2,6 +2,6 @@ public class Main {
 
 	public static void main(String args[]) {
 		Servicios servicios = new Servicios("datasets/Procesadores.csv", "datasets/Tareas.csv");
-		System.out.println(servicios.AsignarTareas(100));
+		System.out.println(servicios.AsignarTareasConBacktracking(100));
 	}
 }
