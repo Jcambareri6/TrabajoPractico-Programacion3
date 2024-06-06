@@ -112,7 +112,11 @@ public class Servicios {
 	private void resolverBacktracking(int EstadoActual, int tiempoMaximo) {
 	
 		if (this.tareasCSV.isEmpty()) {
-			int maxTiempoProcesador=this.SolucionBacktrackingTemporal.getTiempoPeorProcesador();
+			int maxTiempoProcesador = 0;
+			
+			for (Procesador p: procesadoresCSV) {
+				maxTiempoProcesador = Math.max(maxTiempoProcesador,p.getTiempoMax());
+			}
 
 			if (MejorSolucion == Integer.MAX_VALUE || maxTiempoProcesador < MejorSolucion) {
 				MejorSolucion = maxTiempoProcesador;
