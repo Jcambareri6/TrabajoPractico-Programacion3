@@ -20,6 +20,7 @@ public class Procesador {
     public int getTiempoMax() {
         return TiempoMax;
     }
+
     public void setTiempoMax(int tiempoMax) {
         TiempoMax = tiempoMax;
     }
@@ -29,7 +30,6 @@ public class Procesador {
     }
     
     public boolean puedeAsignarTarea(Tarea t,int x){
-        
         if (this.isEstaRefrigerado()){
             return true;
         } else{
@@ -42,9 +42,9 @@ public class Procesador {
             if (tiempo + t.getTiempoEjecucion() <= x){
                 return true;
             } else return false;
-
         }
     }
+    
     public boolean tieneDosCriticas(){
         int n=0;
         for (Tarea tarea : tareas) {
@@ -95,10 +95,10 @@ public class Procesador {
         this.añoFuncionamiento = añoFuncionamiento;
     }
 
-   
     public boolean esMejorSolucion(int estadoSolucion) {
         return estadoSolucion<this.getTiempoMax();
     }
+
     @Override
     public String toString() {
         return "Procesador [id=" + id + ", codigo=" + codigo + ", tareas=" + getTareas() + "]";
@@ -108,8 +108,4 @@ public class Procesador {
         ArrayList<Tarea> copia = new ArrayList<>(tareas);
         return copia;
     }
-   
-    
-    
-  
 }

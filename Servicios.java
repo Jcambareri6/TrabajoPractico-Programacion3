@@ -5,18 +5,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * NO modificar la interfaz de esta clase ni sus métodos públicos.
- * Sólo se podrá adaptar el nombre de la clase "Tarea" según sus decisiones
- * de implementación.
- */
+
 public class Servicios {
 
-	private HashMap<String, Tarea> tareasPorId;// GUARDA POR ID
 	private LinkedList<Tarea> tareasCSV;
 	private ArrayList<Procesador> procesadoresCSV;
+
+	//Estructuras para guardar las tareas
+	private HashMap<String, Tarea> tareasPorId;// GUARDA POR ID
 	LinkedList<Tarea> tareasPrioridadCritica;
 	LinkedList<Tarea> tareasSinPrioridadCritica;
+
+	//Atributos para Backtracking y Gredy
 	private int MejorSolucion = 0;
 	private SolucionBacktracking SolucionBacktracking;
 
@@ -26,7 +26,6 @@ public class Servicios {
 	public Servicios(String pathProcesadores, String pathTareas) {
 		CSVReader reader = new CSVReader();
 		this.tareasCSV = reader.readTasks(pathTareas);
-
 		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
 		
 		this.tareasPrioridadCritica = new LinkedList<Tarea>();
@@ -34,9 +33,8 @@ public class Servicios {
 		this.tareasPorId = new HashMap<String, Tarea>();
 		this.AgregarTarea();
 
+
 		this.SolucionBacktracking = new SolucionBacktracking();
-		// reader.readTasks(pathTareas);
-		// reader.readTasks(pathTareas);
 	}
 
 	public void agregarProcesadores(Procesador p) {
@@ -54,21 +52,23 @@ public class Servicios {
 		}
 	}
 
-	// /*
-	// * Expresar la complejidad temporal del servicio 1.
 
-	// Servicio 1: Dado un identificador de tarea obtener toda la información de la
-	// tarea asociada.
-	public Tarea servicio1(String ID) { // complejidad O(1)
+	// Expresar la complejidad temporal del servicio 1.
+
+	// Servicio 1: Dado un identificador de tarea obtener toda la información de la tarea asociada.
+
+	// complejidad O(1)
+	public Tarea servicio1(String ID) { 
 		return this.tareasPorId.get(ID);
 	}
 
-	// *-Expresar la complejidad temporal del servicio 2.
-	// -Permitir que el usuario decida si quiere ver
-	// todas las tareas críticas o no críticas y generar
-	// el listado apropiado resultante.*/
+	// Expresar la complejidad temporal del servicio 2.
 
-	public List<Tarea> servicio2(boolean esCritica) { // complejidad o(1)
+	// Servicio 2: Permitir que el usuario decida si quiere ver todas las tareas críticas o no críticas 
+	// y generar el listado apropiado resultante.
+
+	// complejidad O(1)
+	public List<Tarea> servicio2(boolean esCritica) { 
 		if (esCritica) {
 			return this.tareasPrioridadCritica;
 		} else {
@@ -77,15 +77,12 @@ public class Servicios {
 
 	}
 
-	// /*
-	// * Expresar la complejidad temporal del servicio 3.
-	// complejidad o (n) + o(m) donde N es la cantidad de tareas con prioridad true
-	// y
-	// m es la cantidad de tareas con prioridad false en total suma la entrada total
-	// de tareas
-	// pero estas se recorren separadas
-	// * Obtener todas las tareas entre 2 niveles de prioridad indicados.
-	// */
+	// Expresar la complejidad temporal del servicio 3.
+
+	// Servicio 3: Obtener todas las tareas entre 2 niveles de prioridad indicados.
+
+	// complejidad o (n) + o(m) donde N es la cantidad de tareas con prioridad true y m es la cantidad de tareas 
+	// con prioridad false en total suma la entrada total de tareas pero estas se recorren separadas
 	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
 		List<Tarea> tareaEntreNiveles = new LinkedList<>();
 		for (Tarea tarea : this.tareasPrioridadCritica) {
@@ -102,6 +99,8 @@ public class Servicios {
 		return tareaEntreNiveles;
 	}
 
+
+	
 	public SolucionBacktracking AsignarTareas(int tiempoMaximo) {
 		if (tareasCSV.isEmpty()) {
 			return null;
@@ -135,7 +134,8 @@ public class Servicios {
 					pr.borrarTarea(t);
 					pr.setTiempoMax(pr.getTiempoMax()-t.getTiempoEjecucion()); 
 						
-					}			
+				}	
+						
 			}
 			tareasCSV.addFirst(t);	
 		}

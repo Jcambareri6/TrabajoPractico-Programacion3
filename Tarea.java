@@ -1,5 +1,3 @@
-
-
 public class Tarea{
     private String id;
     private int tiempoEjecucion;
@@ -43,7 +41,6 @@ public class Tarea{
     public void setEsCritica(boolean esCritica) {
         this.esCritica = esCritica;
     }
-
 
     public int getNivelDePrioridad() {
         return nivelDePrioridad;
