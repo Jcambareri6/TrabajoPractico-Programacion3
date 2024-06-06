@@ -120,7 +120,7 @@ public class Servicios {
 				this.SolucionBacktrackingFinal.deleteProcesadores();
 				this.SolucionBacktrackingFinal = this.SolucionBacktrackingTemporal.getCopia();
 			}
-
+			
 		    this.SolucionBacktrackingTemporal.deleteProcesadores();
 
 		} else {
@@ -131,9 +131,11 @@ public class Servicios {
 					int tiempoMaxPrevio = pr.getTiempoMax();
 					pr.agregarTarea(t);
 					pr.setTiempoMax(tiempoMaxPrevio + t.getTiempoEjecucion());
-
+					
 					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
 						this.SolucionBacktrackingTemporal.addProcesador(pr.getCopia());
+						int i = SolucionBacktrackingTemporal.getMetrica();
+						this.SolucionBacktrackingTemporal.setMetrica(i+1);
 						resolverBacktracking(pr.getTiempoMax(), tiempoMaximo);
 					}
 				

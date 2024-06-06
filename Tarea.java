@@ -69,8 +69,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "Tarea [id=" + id + ", tiempoEjecucion=" + tiempoEjecucion + ", nombre=" + nombre + ", esCritica="
-                + esCritica + ", nivelDePrioridad=" + nivelDePrioridad + "]";
+        return "Tarea [id=" + id + ", tiempoEjecucion=" + tiempoEjecucion + "]";
     }
 
 }

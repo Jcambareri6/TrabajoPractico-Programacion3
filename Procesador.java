@@ -93,8 +93,7 @@ public class Procesador {
 
     @Override
     public String toString() {
-        return "Procesador [id=" + id + ", codigo=" + codigo + ", EstaRefrigerado=" + EstaRefrigerado
-                + ", añoFuncionamiento=" + añoFuncionamiento + ", TiempoMax=" + TiempoMax + ", tareas=" + tareas + "]";
+        return "Procesador [id=" + id + ", tareas=" + tareas + "]";
     }
 
     public ArrayList<Tarea> getTareas(){
