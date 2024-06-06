@@ -3,20 +3,26 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class SolucionGreedy {
+
     private ArrayList<Procesador>Solucion;
     private ArrayList<Procesador>ProcesadorCSV;
     private LinkedList<Tarea> tareasSinAsignar;
-    private int TiempoMax;
+    private int TiempoMejorSolucion;
     private int metrica;
+
     public SolucionGreedy (String pathProcesadores, String pathTareas){
         CSVReader readerCSV = new CSVReader();
         this.Solucion= new ArrayList<>();
         this.ProcesadorCSV= readerCSV.readProcessors(pathProcesadores);
         this.tareasSinAsignar = readerCSV.readTasks(pathTareas);
-        this.TiempoMax= Integer.MAX_VALUE;
+        this.TiempoMejorSolucion= Integer.MAX_VALUE;
         this.metrica =0;
 
     }
+
+    //El criterio de solucion greedy fue elegir las tareas con mayor tiempo de ejecucion 
+    //e ir asignandolas primero ya que esto permite balancear de manera mas eficaz las tareas a los procesadores
+    
     public Tarea GetMejorCandidato(){
         int Max=0;
         Tarea tCandidata= null;
@@ -24,26 +30,24 @@ public class SolucionGreedy {
             if(t.getTiempoEjecucion()>Max){
                 Max= t.getTiempoEjecucion();
                 tCandidata=t; 
-         
             }
-        }
-       
+        } 
         this.tareasSinAsignar.remove(tCandidata);
         this.incrementarMetrica();
         return tCandidata;
     }
-    public String Solucionar (int x){
+
+    public SolucionGreedy AsignarTareasConGreedy (int x){
         if(tareasSinAsignar.isEmpty()){
-            return "no hay solucion";
+            return null;
         }else{
             this.SolucionarGreedy(x);
-            return this.toString();
+            return this;
         }
     }
+
     private void SolucionarGreedy(int x){
-       
-        int TMax =0;
- 
+        int TMaxTemporal =0;
         while(!this.tareasSinAsignar.isEmpty() ){
             for (Procesador p : this.ProcesadorCSV) {
                 Tarea  t = this.GetMejorCandidato();
@@ -51,28 +55,26 @@ public class SolucionGreedy {
                 if(comprobar(p,t,x)){
                 p.setTiempoMax(p.getTiempoMax()+t.getTiempoEjecucion());
                 p.agregarTarea(t);
-                if(p.getTiempoMax()>TMax){
-                    TMax=p.getTiempoMax();
+
+                if(p.getTiempoMax()>TMaxTemporal){
+                    TMaxTemporal=p.getTiempoMax();
                 }
-                //TMax= p.getTiempoMax()+t.getTiempoEjecucion();
-                //p.setTiempoMax(TMax);
                  this.Solucion.add(p.getCopia());
                 }
             }
            
         }
-       
-            if(this.TiempoMax == Integer.MAX_VALUE || TMax<this.TiempoMax){
-                this.setTiempoMax(TMax);
-                this.Solucion = new ArrayList<Procesador>();
-                this.Solucion = this.getProcesadores();
-               
-                
-            }
+        if(this.TiempoMejorSolucion == Integer.MAX_VALUE || TMaxTemporal < this.TiempoMejorSolucion){
+            this.setTiempoMejorSolucion(TMaxTemporal);
+            this.Solucion = new ArrayList<Procesador>();
+            this.Solucion = this.getProcesadores();                   
+        }
     }
+
     public void incrementarMetrica(){
         this.metrica++;
     }
+
     private ArrayList<Procesador> getProcesadores(){
         ArrayList<Procesador> procesadores = new ArrayList <Procesador> ();
         for (Procesador P : this.ProcesadorCSV) {
@@ -80,18 +82,22 @@ public class SolucionGreedy {
         }
         return procesadores;
     }
+
     private boolean comprobar(Procesador p, Tarea t, int x) {
       return p.puedeAsignarTarea(t, x) && !p.tieneDosCriticas(); 
     }
-    public int getTiempoMax() {
-        return TiempoMax;
+
+    public int getTiempoMejorSolucion() {
+        return TiempoMejorSolucion;
     }
-    public void setTiempoMax(int tiempoMax) {
-        TiempoMax = tiempoMax;
+
+    public void setTiempoMejorSolucion(int TiempoMejorSolucion) {
+        this.TiempoMejorSolucion = TiempoMejorSolucion;
     }
+
     @Override
     public String toString() {
-        return "SolucionGreedy [Solucion=" + Solucion + ", TiempoMax=" + TiempoMax + ", metrica=" + metrica + "]";
+        return "SolucionGreedy [Solucion=" + Solucion + ", TiempoMejorSolucion=" + TiempoMejorSolucion + ", metrica=" + metrica + "]";
     }
     
     

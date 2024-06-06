@@ -15,12 +15,6 @@ public class Servicios {
 	LinkedList<Tarea> tareasPrioridadCritica;
 	LinkedList<Tarea> tareasSinPrioridadCritica;
 
-	//Atributos para implementar Backtracking
-	private int MejorSolucion =Integer.MAX_VALUE;
-	private SolucionBacktracking SolucionBacktrackingTemporal;
-	private SolucionBacktracking SolucionBacktrackingFinal;
-	
-
 	// Expresar la complejidad temporal del constructor.
 	// complejidad?
 	public Servicios(String pathProcesadores, String pathTareas) {
@@ -33,10 +27,6 @@ public class Servicios {
 		this.tareasSinPrioridadCritica = new LinkedList<Tarea>();
 		this.tareasPorId = new HashMap<String, Tarea>();
 		this.AgregarTareas();
-
-		//Inicializacion de atributos de Bacltracking
-		this.SolucionBacktrackingTemporal = new SolucionBacktracking();
-		this.SolucionBacktrackingFinal = new SolucionBacktracking();
 	}
 
 	private void AgregarTareas() {
@@ -94,68 +84,5 @@ public class Servicios {
 			}
 		}
 		return tareaEntreNiveles;
-	}
-
-
-	
-	public SolucionBacktracking AsignarTareasConBacktracking(int tiempoMaximo) {
-		if (tareasCSV.isEmpty()) {
-			return null;
-		} else {
-			
-			resolverBacktracking(0, tiempoMaximo);
-			return this.SolucionBacktrackingFinal;
-			
-		}
-	}
-
-	private void resolverBacktracking(int EstadoActual, int tiempoMaximo) {
-	
-		if (this.tareasCSV.isEmpty()) {
-			int maxTiempoProcesador = 0;
-			
-			for (Procesador p: procesadoresCSV) {
-				maxTiempoProcesador = Math.max(maxTiempoProcesador,p.getTiempoMax());
-			}
-
-			if (MejorSolucion == Integer.MAX_VALUE || maxTiempoProcesador < MejorSolucion) {
-				MejorSolucion = maxTiempoProcesador;
-				SolucionBacktrackingTemporal.setTiempoPeorProcesador(MejorSolucion);
-				this.SolucionBacktrackingFinal.deleteProcesadores();
-				this.SolucionBacktrackingFinal = this.SolucionBacktrackingTemporal.getCopia();
-			}
-			
-		    this.SolucionBacktrackingTemporal.deleteProcesadores();
-
-		} else {
-			Tarea t = this.tareasCSV.removeFirst();
-
-			for (Procesador pr : procesadoresCSV) {
-				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
-					int tiempoMaxPrevio = pr.getTiempoMax();
-					pr.agregarTarea(t);
-					pr.setTiempoMax(tiempoMaxPrevio + t.getTiempoEjecucion());
-					
-					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
-						this.SolucionBacktrackingTemporal.addProcesador(pr.getCopia());
-						int i = SolucionBacktrackingTemporal.getMetrica();
-						this.SolucionBacktrackingTemporal.setMetrica(i+1);
-						resolverBacktracking(pr.getTiempoMax(), tiempoMaximo);
-					}
-				
-					pr.borrarTarea(t);
-					pr.setTiempoMax(tiempoMaxPrevio);
-				}
-			}
-			tareasCSV.addFirst(t);
-		}
-	}
-
-	public int getMejorSolucion() {
-		return MejorSolucion;
-	}
-
-	public void setMejorSolucion(int mejorSolucion) {
-		MejorSolucion = mejorSolucion;
 	}
 }
