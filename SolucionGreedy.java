@@ -16,6 +16,7 @@ public class SolucionGreedy {
         this.ProcesadorCSV= readerCSV.readProcessors(pathProcesadores);
         this.tareasSinAsignar = readerCSV.readTasks(pathTareas);
         this.TiempoMejorSolucion= Integer.MAX_VALUE;
+      
         this.metrica =0;
 
     }
@@ -32,21 +33,24 @@ public class SolucionGreedy {
                 tCandidata=t; 
             }
         } 
-        this.tareasSinAsignar.remove(tCandidata);
+       
         this.incrementarMetrica();
         return tCandidata;
     }
 
     public SolucionGreedy AsignarTareasConGreedy (int x){
-        System.out.println("hola entre");
+       
         if(tareasSinAsignar.isEmpty()){
             return null ;
         }else{
-            System.out.println("tiro el error");
+            
             this.SolucionarGreedy(x);
-            return this;
+            if(tareasSinAsignar.isEmpty()){
+                return this;
+            }
+            return null;
+            
         
-           
         }
     }
 
@@ -55,15 +59,21 @@ public class SolucionGreedy {
         while(!this.tareasSinAsignar.isEmpty() ){
             for (Procesador p : this.ProcesadorCSV) {
                 Tarea  t = this.GetMejorCandidato();
-                System.out.println("entre al for");
+               
                 if(comprobar(p,t,x)){
+                this.tareasSinAsignar.remove(t);
                 p.setTiempoMax(p.getTiempoMax()+t.getTiempoEjecucion());
                 p.agregarTarea(t);
 
                 if(p.getTiempoMax()>TMaxTemporal){
                     TMaxTemporal=p.getTiempoMax();
                 }
+
                  this.Solucion.add(p.getCopia());
+                }else{
+                    this.tareasSinAsignar.add(t);
+                    return;
+                
                 }
             }
            
