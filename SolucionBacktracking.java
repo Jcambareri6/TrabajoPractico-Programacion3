@@ -84,7 +84,7 @@ public class SolucionBacktracking {
 
     public ArrayList<Procesador> getProcesadores(){
         ArrayList<Procesador> copia = new ArrayList<>();
-        for (Procesador procesador : procesadores) {
+        for (Procesador procesador : procesadoresCSV) {
             copia.add(procesador.getCopia());
         }
         return copia;
