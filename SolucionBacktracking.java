@@ -18,8 +18,6 @@ public class SolucionBacktracking {
         this.tiempoPeorProcesador=0;
         this.metrica=0;
     }
-
-
 	
 	public SolucionBacktracking AsignarTareasConBacktracking(int tiempoMaximo) {
 		if (tareasCSV.isEmpty()) {
@@ -33,14 +31,10 @@ public class SolucionBacktracking {
 	private void resolverBacktracking(int EstadoActual, int tiempoMaximo) {
 	
 		if (this.tareasCSV.isEmpty()) {
-			int maxTiempoProcesador = 0;
-			
-			for (Procesador p: procesadoresCSV) {
-				maxTiempoProcesador = Math.max(maxTiempoProcesador,p.getTiempoMax());
-			}
+	
 
-			if (MejorSolucion == Integer.MAX_VALUE || maxTiempoProcesador < MejorSolucion) {
-				MejorSolucion = maxTiempoProcesador;
+			if (MejorSolucion == Integer.MAX_VALUE || EstadoActual < MejorSolucion) {
+				MejorSolucion = EstadoActual;
                 
 				this.setTiempoPeorProcesador(MejorSolucion);
                 procesadoresFinal = new ArrayList<>();
@@ -50,7 +44,7 @@ public class SolucionBacktracking {
             
 		} else {
 			Tarea t = this.tareasCSV.removeFirst();
-
+            int TMaxTemporal = 0;
 			for (Procesador pr : procesadoresCSV) {
 				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
 					int tiempoMaxPrevio = pr.getTiempoMax();
@@ -59,9 +53,11 @@ public class SolucionBacktracking {
 					
 					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
 						this.addProcesador(pr.getCopia());
-						int i = this.getMetrica();
-						this.setMetrica(i+1);
-						resolverBacktracking(pr.getTiempoMax(), tiempoMaximo);
+						if(pr.getTiempoMax()>TMaxTemporal){ 
+                            TMaxTemporal=pr.getTiempoMax();
+                        }
+						this.incrementarMetrica();
+						resolverBacktracking(TMaxTemporal ,tiempoMaximo);
 					}
 				
 					pr.borrarTarea(t);
@@ -95,26 +91,16 @@ public class SolucionBacktracking {
         this.procesadores = new ArrayList<Procesador>();
     }
     
-    public int getTiempoPeorProcesador() {
-        int maxTiempoProcesador =0;
-        for (Procesador p : this.procesadores) {
-             maxTiempoProcesador = Math.max(maxTiempoProcesador, p.getTiempoMax());
-        }
-        return maxTiempoProcesador;
-    }
 
     public void setTiempoPeorProcesador(int tiempoPeorProcesador) {
         this.tiempoPeorProcesador = tiempoPeorProcesador;
     }
 
-    public int getMetrica() {
-        return metrica;
-    }
+ 
 
-    public void setMetrica(int metrica) {
-        this.metrica = metrica;
+    public void incrementarMetrica() {
+        this.metrica++;
     }
-
 
     @Override
     public String toString() {

@@ -51,7 +51,6 @@ public class SolucionGreedy {
         while(!this.tareasSinAsignar.isEmpty() ){
             for (Procesador p : this.ProcesadorCSV) {
                 Tarea  t = this.GetMejorCandidato();
-                
                 if(comprobar(p,t,x)){
                 p.setTiempoMax(p.getTiempoMax()+t.getTiempoEjecucion());
                 p.agregarTarea(t);
