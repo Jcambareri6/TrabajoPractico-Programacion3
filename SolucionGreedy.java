@@ -38,11 +38,15 @@ public class SolucionGreedy {
     }
 
     public SolucionGreedy AsignarTareasConGreedy (int x){
+        System.out.println("hola entre");
         if(tareasSinAsignar.isEmpty()){
-            return null;
+            return null ;
         }else{
+            System.out.println("tiro el error");
             this.SolucionarGreedy(x);
             return this;
+        
+           
         }
     }
 
@@ -51,7 +55,7 @@ public class SolucionGreedy {
         while(!this.tareasSinAsignar.isEmpty() ){
             for (Procesador p : this.ProcesadorCSV) {
                 Tarea  t = this.GetMejorCandidato();
-                
+                System.out.println("entre al for");
                 if(comprobar(p,t,x)){
                 p.setTiempoMax(p.getTiempoMax()+t.getTiempoEjecucion());
                 p.agregarTarea(t);

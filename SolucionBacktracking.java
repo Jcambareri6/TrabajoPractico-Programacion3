@@ -54,7 +54,7 @@ public class SolucionBacktracking {
 					
 					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
 						this.addProcesador(pr.getCopia());
-						if(pr.getTiempoMax()>TMaxTemporal){
+						if(pr.getTiempoMax()>TMaxTemporal){ 
                             TMaxTemporal=pr.getTiempoMax();
                         }
 						this.incrementarMetrica();
@@ -92,13 +92,6 @@ public class SolucionBacktracking {
         this.procesadores = new ArrayList<Procesador>();
     }
     
-    public int getTiempoPeorProcesador() {
-        int maxTiempoProcesador =0;
-        for (Procesador p : this.procesadores) {
-             maxTiempoProcesador = Math.max(maxTiempoProcesador, p.getTiempoMax());
-        }
-        return maxTiempoProcesador;
-    }
 
     public void setTiempoPeorProcesador(int tiempoPeorProcesador) {
         this.tiempoPeorProcesador = tiempoPeorProcesador;
@@ -109,7 +102,6 @@ public class SolucionBacktracking {
     public void incrementarMetrica() {
         this.metrica++;
     }
-
 
     @Override
     public String toString() {
