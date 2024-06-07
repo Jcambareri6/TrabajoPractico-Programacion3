@@ -47,6 +47,7 @@ public class SolucionBacktracking {
                 this.procesadoresFinal = this.getProcesadores();
 			}
 			this.deleteProcesadores();
+            
 		} else {
 			Tarea t = this.tareasCSV.removeFirst();
 
