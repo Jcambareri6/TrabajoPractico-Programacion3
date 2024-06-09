@@ -55,10 +55,41 @@ public class SolucionBacktracking {
 
                 procesadoresFinal = new ArrayList<>();
                 this.procesadoresFinal = this.getProcesadores();
+<<<<<<< HEAD
             }
             this.deleteProcesadores();
         } else {
             Tarea t = this.tareasCSV.removeFirst();
+=======
+			}
+			this.deleteProcesadores();
+            
+		} else {
+			Tarea t = this.tareasCSV.removeFirst();
+            int TMaxTemporal = 0;
+			for (Procesador pr : procesadoresCSV) {
+				if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
+					int tiempoMaxPrevio = pr.getTiempoMax();
+					pr.agregarTarea(t);
+					pr.setTiempoMax(tiempoMaxPrevio + t.getTiempoEjecucion());
+					
+					if (MejorSolucion == Integer.MAX_VALUE || pr.getTiempoMax() <= MejorSolucion) {
+						this.addProcesador(pr.getCopia());
+						if(pr.getTiempoMax()>TMaxTemporal){ 
+                            TMaxTemporal=pr.getTiempoMax();
+                        }
+						this.incrementarMetrica();
+						resolverBacktracking(TMaxTemporal ,tiempoMaximo);
+					}
+				
+					pr.borrarTarea(t);
+					pr.setTiempoMax(tiempoMaxPrevio);
+				}
+			}
+			tareasCSV.addFirst(t);
+		}
+	}
+>>>>>>> 1fa033c0ee1c7ad1d1aaa8ca849a3d7b9d32efc5
 
             for (Procesador pr : procesadoresCSV) {
                 if (pr.puedeAsignarTarea(t, tiempoMaximo) && !pr.tieneDosCriticas()) {
