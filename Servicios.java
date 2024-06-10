@@ -1,5 +1,3 @@
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +6,7 @@ import java.util.List;
 public class Servicios {
 
 	private LinkedList<Tarea> tareasCSV;
-	private ArrayList<Procesador> procesadoresCSV;
+	
 
 	//Estructuras para guardar las tareas
 	private HashMap<String, Tarea> tareasPorId;
@@ -16,17 +14,17 @@ public class Servicios {
 	LinkedList<Tarea> tareasSinPrioridadCritica;
 
 	// Expresar la complejidad temporal del constructor.
-	// complejidad?
+	// complejidad o(n)
 	public Servicios(String pathProcesadores, String pathTareas) {
 		CSVReader reader = new CSVReader();
-		this.tareasCSV = reader.readTasks(pathTareas);
-		this.procesadoresCSV = reader.readProcessors(pathProcesadores);
+		this.tareasCSV = reader.readTasks(pathTareas); // o(n)
+	
 		
 		//Inicializacion de estructuras para tareas
-		this.tareasPrioridadCritica = new LinkedList<Tarea>();
-		this.tareasSinPrioridadCritica = new LinkedList<Tarea>();
-		this.tareasPorId = new HashMap<String, Tarea>();
-		this.AgregarTareas();
+		this.tareasPrioridadCritica = new LinkedList<Tarea>(); //o(1)
+		this.tareasSinPrioridadCritica = new LinkedList<Tarea>();//o(1)
+		this.tareasPorId = new HashMap<String, Tarea>();//o(1)
+		this.AgregarTareas(); //o(n)
 	}
 
 	private void AgregarTareas() {
@@ -51,7 +49,7 @@ public class Servicios {
 	}
 
 	// Expresar la complejidad temporal del servicio 2.
-
+	
 	// Servicio 2: Permitir que el usuario decida si quiere ver todas las tareas críticas o no críticas 
 	// y generar el listado apropiado resultante.
 

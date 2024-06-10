@@ -2,12 +2,12 @@ public class Main {
 
 	public static void main(String args[]) {
 		Servicios servicios = new Servicios("datasets/Procesadores.csv", "datasets/Tareas.csv");
-		servicios.servicio1("T1");
-		servicios.servicio1("T3");
-		servicios.servicio2(true);
-		servicios.servicio2(false);
-		servicios.servicio3(30, 200);
-		servicios.servicio3(60, 100);
+		System.out.println(servicios.servicio1("T1"));
+		System.out.println(servicios.servicio1("T3"));
+		System.out.println(servicios.servicio2(true));
+		System.out.println(servicios.servicio2(false));
+		System.out.println(servicios.servicio3(30, 200));
+		System.out.println(servicios.servicio3(60, 100));
 	}
 }
 
